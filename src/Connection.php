@@ -10,8 +10,8 @@ class Connection
     const SOAP_RETURN_MESSAGES = 'resultMessages';
     const SOAP_RETURN_VERSION = 'version';
     const SOAP_CODE_SUCCESS = 10504;
-    const WSDL_URL = 'http://typo3.org/wsdl/tx_ter_wsdl.php';
-    const WSDL_NAMESPACE = 'http://www.typo3.org/wsdl/tx_ter/';
+    const WSDL_URL = 'https://typo3.org/wsdl/tx_ter_wsdl.php';
+    const WSDL_NAMESPACE = 'https://www.typo3.org/wsdl/tx_ter/';
     const FUNCTION_UPLOAD = 'uploadExtension';
     const FUNCTION_DELETEVERSION = 'deleteExtensionVersion';
 
@@ -38,8 +38,16 @@ class Connection
      */
     public function call($function, array $parameters, $username, $password)
     {
+        $parameters = array_merge([
+            'accountData' => [
+                    'username' => $username,
+                    'password' => $password
+                ]
+            ],
+            $parameters
+        );
+
         $client = $this->getSoapClientForWsdl($this->wsdl);
-        $header = $this->getAuthenticationHeader($username, $password);
         $output = $client->__soapCall($function, $parameters, ['exceptions' => true, 'trace' => true]);
         if (true === $output instanceof \SoapFault) {
             throw $output;
@@ -51,16 +59,6 @@ class Connection
             throw new \RuntimeException('TER command "' . $function . '" failed; code was ' . $output[self::SOAP_RETURN_CODE]);
         }
         return $output;
-    }
-
-    /**
-     * @param string $username
-     * @param string $password
-     * @return \SoapHeader
-     */
-    protected function getAuthenticationHeader($username, $password)
-    {
-        return new \SoapHeader(self::WSDL_NAMESPACE, 'HeaderLogin', (object) ['username' => $username, 'password' => $password], true);
     }
 
     /**

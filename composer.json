@@ -6,6 +6,10 @@
         {
             "name": "Claus Due",
             "email": "claus@namelesscoder.net"
+        },
+        {
+            "name": "Helmut Hummel",
+            "email": "info@helhum.io"
         }
     ],
     "autoload": {
@@ -19,7 +23,8 @@
         }
     },
     "require": {
-        "php": "^5.5 || ^7.0"
+        "php": "^5.5 || ^7.0",
+        "symfony/console": "^2.7 || ^3.0"
     },
     "require-dev": {
         "phpunit/phpunit": "4.2.*",

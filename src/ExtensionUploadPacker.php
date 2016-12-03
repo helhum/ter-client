@@ -16,11 +16,13 @@ class ExtensionUploadPacker
      * @param string $username
      * @param string $password
      * @param string $comment
+     * @param string $extensionKey
      * @return string
+     * @throws \RuntimeException
      */
-    public function pack($directory, $username, $password, $comment)
+    public function pack($directory, $username, $password, $comment = '', $extensionKey = null)
     {
-        $extensionKey = pathinfo($directory, PATHINFO_FILENAME);
+        $extensionKey = $extensionKey ?: pathinfo($directory, PATHINFO_FILENAME);
         $extensionConfiguration = $this->readExtensionConfigurationFile($directory, $extensionKey);
         $data = $this->createFileDataArray($directory);
         $data['EM_CONF'] = $extensionConfiguration;
@@ -107,7 +109,7 @@ class ExtensionUploadPacker
      * @param string $comment
      * @return array
      */
-    public function createSoapData($extensionKey, $extensionData, $username, $password, $comment)
+    public function createSoapData($extensionKey, $extensionData, $username, $password, $comment = '')
     {
 
         // Create dependency / conflict information:
@@ -163,11 +165,10 @@ class ExtensionUploadPacker
                 'contentMD5' => $infoArr['content_md5'],
             ];
         }
-        $compier = new SoapDataCompiler();
-        return $compier->createSoapData($username, $password, [
+        return [
             'extensionData' => $extension,
             'filesData' => $files
-        ]);
+        ];
     }
 
     /**
@@ -240,7 +241,7 @@ class ExtensionUploadPacker
      */
     protected function isDotFileAndNotPermitted($filename)
     {
-        return false === empty($filename) && '.' === $filename{0}
-        && false === in_array($filename, $this->permittedDotFiles);
+        return !empty($filename) && '.' === $filename[0]
+        && !in_array($filename, $this->permittedDotFiles, true);
     }
 }

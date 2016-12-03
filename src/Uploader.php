@@ -6,37 +6,45 @@ namespace NamelessCoder\TYPO3RepositoryClient;
  */
 class Uploader
 {
+    /**
+     * @var Connection
+     */
+    private $connection;
+
+    /**
+     * @var ExtensionUploadPacker
+     */
+    private $packer;
+
+    /**
+     * Uploader constructor.
+     *
+     * @param Connection $connection
+     * @param ExtensionUploadPacker $packer
+     */
+    public function __construct(Connection $connection = null, ExtensionUploadPacker $packer = null)
+    {
+        $this->connection = $connection ?: new Connection();
+        $this->packer = $packer ?: new ExtensionUploadPacker();
+    }
 
     /**
      * @param string $directory
      * @param string $username
      * @param string $password
      * @param string $comment
+     * @param string $extensionKey
      * @return array
+     * @throws \RuntimeException
+     * @throws \SoapFault
      */
-    public function upload($directory, $username, $password, $comment = null)
+    public function upload($directory, $username, $password, $comment = '', $extensionKey = null)
     {
-        return $this->getConnection()->call(
+        return $this->connection->call(
             Connection::FUNCTION_UPLOAD,
-            $this->getExtensionUploadPacker()->pack($directory, $username, $password, $comment),
+            $this->packer->pack($directory, $username, $password, $comment, $extensionKey),
             $username,
             $password
         );
-    }
-
-    /**
-     * @return Connection
-     */
-    protected function getConnection()
-    {
-        return new Connection();
-    }
-
-    /**
-     * @return ExtensionUploadPacker
-     */
-    protected function getExtensionUploadPacker()
-    {
-        return new ExtensionUploadPacker();
     }
 }

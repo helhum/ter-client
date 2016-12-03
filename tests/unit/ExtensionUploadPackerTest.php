@@ -114,7 +114,6 @@ class ExtensionUploadPackerTest extends \PHPUnit_Framework_TestCase
         $packer->expects($this->once())->method('validateVersionNumber');
         $result = $packer->pack($directory, 'username', 'password', 'comment');
         $expected =  [
-            'accountData' => ['username' => 'username', 'password' => 'password'],
             'extensionData' =>  [
                 'extensionKey' => 'temp',
                 'version' => '1.2.3-invalid',

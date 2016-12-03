@@ -8,15 +8,6 @@ use NamelessCoder\TYPO3RepositoryClient\Connection;
  */
 class ConnectionTest extends \PHPUnit_Framework_TestCase
 {
-    public function testGetAuthenticationHeaderReturnsSoapHeader()
-    {
-        $connection = new Connection();
-        $method = new \ReflectionMethod($connection, 'getAuthenticationHeader');
-        $method->setAccessible(true);
-        $result = $method->invoke($connection, 'usernamefoobar', 'passwordfoobar');
-        $this->assertInstanceOf('SoapHeader', $result);
-    }
-
     public function testGetSoapClientForWsdlReturnsSoapClient()
     {
         $connection = new Connection();
@@ -34,7 +25,13 @@ class ConnectionTest extends \PHPUnit_Framework_TestCase
      */
     public function testCall($function, $output, $expectedExceptionMessage, $expectedExceptionType)
     {
-        $parameters = ['foo' => 'bar'];
+        $parameters = [
+            'accountData' => [
+                'username' => 'usernamefoobar',
+                'password' => 'passwordfoobar',
+            ],
+            'foo' => 'bar'
+        ];
         $settings = ['exceptions' => true, 'trace' => true];
         $client = $this->getMock('SoapClient', ['__soapCall'], [], '', false);
         $client->expects($this->once())->method('__soapCall')->with($function, $parameters, $settings)->will($this->returnValue($output));

@@ -1,0 +1,14 @@
+#!/usr/bin/env php
+<?php
+
+foreach ([__DIR__ . '/../../autoload.php', __DIR__ . '/../vendor/autoload.php', __DIR__ . '/vendor/autoload.php'] as $file) {
+    if (file_exists($file)) {
+        /** @noinspection PhpIncludeInspection */
+        require $file;
+        break;
+    }
+}
+
+$app = new \Symfony\Component\Console\Application('TYPO3 TER CLI client', '0.1.0');
+$app->add(new \NamelessCoder\TYPO3RepositoryClient\Cli\Command\UploadCommand());
+$app->run();
