@@ -1,5 +1,4 @@
-<phpunit bootstrap="./tests/bootstrap.php"
-         backupGlobals="false"
+<phpunit backupGlobals="false"
          backupStaticAttributes="false"
          colors="true"
          convertErrorsToExceptions="true"
@@ -16,11 +15,4 @@
             <directory>tests/unit</directory>
         </testsuite>
     </testsuites>
-    <filter>
-        <whitelist>
-            <addUncoveredFilesFromWhitelist>true</addUncoveredFilesFromWhitelist>
-            <processUncoveredFilesFromWhitelist>true</processUncoveredFilesFromWhitelist>
-            <directory>src</directory>
-        </whitelist>
-    </filter>
 </phpunit>
