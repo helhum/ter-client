@@ -85,7 +85,7 @@ class RemoveVersionCommand extends Command
             $password = $this->ask($input, $output, '<comment>Please specify a password:</comment> ', true);
         }
 
-        $deleter = new Deleter(new Connection($wsdUrl));
+        $deleter = new Deleter(Connection::create($wsdUrl));
         $result = $deleter->deleteExtensionVersion($extensionKey, $version, $username, $password);
 
         if (isset($result[Connection::SOAP_RETURN_VERSION])) {

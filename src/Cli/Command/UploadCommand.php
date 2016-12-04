@@ -95,7 +95,7 @@ class UploadCommand extends Command
             $password = $this->ask($input, $output, '<comment>Please specify a password:</comment> ', true);
         }
 
-        $uploader = new Uploader(new Connection($wsdUrl), new ExtensionUploadPacker());
+        $uploader = new Uploader(Connection::create($wsdUrl), new ExtensionUploadPacker());
         $result = $uploader->upload($directory, $username, $password, $comment, $extensionKey);
 
         if (isset($result[Connection::SOAP_RETURN_VERSION])) {

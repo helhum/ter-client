@@ -12,7 +12,7 @@ class UploaderTest extends \PHPUnit_Framework_TestCase
 {
     public function testUpload()
     {
-        $mockConnection = $this->getMockBuilder(Connection::class)->getMock();
+        $mockConnection = $this->getMockBuilder(Connection::class)->disableOriginalConstructor()->getMock();
         $mockConnection->expects($this->once())->method('call')->will($this->returnValue('foobarbaz'));
         $mockPacker = $this->getMockBuilder(ExtensionUploadPacker::class)->getMock();
         $mockPacker->expects($this->once())->method('pack')->will($this->returnValue([]));

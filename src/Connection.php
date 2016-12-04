@@ -16,16 +16,24 @@ class Connection
     const FUNCTION_DELETEVERSION = 'deleteExtension';
 
     /**
-     * @var string
+     * @var \SoapClient
      */
-    protected $wsdl = null;
+    private $client;
 
     /**
      * @param string $wsdl
+     * @return Connection
      */
-    public function __construct($wsdl = self::WSDL_URL)
+    public static function create($wsdl = self::WSDL_URL) {
+        return new self(new \SoapClient($wsdl));
+    }
+
+    /**
+     * @param \SoapClient $client
+     */
+    public function __construct(\SoapClient $client)
     {
-        $this->wsdl = $wsdl;
+        $this->client = $client;
     }
 
     /**
@@ -47,8 +55,7 @@ class Connection
             $parameters
         );
 
-        $client = $this->getSoapClientForWsdl($this->wsdl);
-        $output = $client->__soapCall($function, $parameters, ['exceptions' => true, 'trace' => true]);
+        $output = $this->client->__soapCall($function, $parameters, ['exceptions' => true, 'trace' => true]);
         if (true === $output instanceof \SoapFault) {
             throw $output;
         }
@@ -59,14 +66,5 @@ class Connection
             throw new \RuntimeException('TER command "' . $function . '" failed; code was ' . $output[self::SOAP_RETURN_CODE]);
         }
         return $output;
-    }
-
-    /**
-     * @param string $wsdl
-     * @return \SoapClient
-     */
-    protected function getSoapClientForWsdl($wsdl)
-    {
-        return new \SoapClient($wsdl);
     }
 }
