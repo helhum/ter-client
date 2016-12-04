@@ -13,21 +13,18 @@ class ExtensionUploadPacker
 
     /**
      * @param string $directory
-     * @param string $username
-     * @param string $password
      * @param string $comment
      * @param string $extensionKey
      * @return string
      * @throws \RuntimeException
      */
-    public function pack($directory, $username, $password, $comment = '', $extensionKey = null)
+    public function pack($directory, $comment = '', $extensionKey = null)
     {
         $extensionKey = $extensionKey ?: pathinfo($directory, PATHINFO_FILENAME);
         $extensionConfiguration = $this->readExtensionConfigurationFile($directory, $extensionKey);
         $data = $this->createFileDataArray($directory);
         $data['EM_CONF'] = $extensionConfiguration;
-        $soap = $this->createSoapData($extensionKey, $data, $username, $password, $comment);
-        return $soap;
+        return $this->createSoapData($extensionKey, $data, $comment);
     }
 
     /**
@@ -36,7 +33,7 @@ class ExtensionUploadPacker
      * @return array
      * @throws \RuntimeException
      */
-    protected function readExtensionConfigurationFile($directory, $_EXTKEY)
+    private function readExtensionConfigurationFile($directory, $_EXTKEY)
     {
         $expectedFilename = $directory . '/ext_emconf.php';
         if (false === file_exists($expectedFilename)) {
@@ -68,7 +65,7 @@ class ExtensionUploadPacker
      * @return array
      * @throws \RuntimeException
      */
-    protected function createDependenciesArray($extensionData, $key)
+    private function createDependenciesArray($extensionData, $key)
     {
         $dependenciesArr = [];
         if (false === isset($extensionData['EM_CONF']['constraints'][$key])) {
@@ -96,7 +93,7 @@ class ExtensionUploadPacker
      * @param mixed $default
      * @return mixed
      */
-    protected function valueOrDefault($extensionData, $key, $default = null)
+    private function valueOrDefault($extensionData, $key, $default = null)
     {
         return true === isset($extensionData['EM_CONF'][$key]) ? $extensionData['EM_CONF'][$key] : $default;
     }
@@ -104,12 +101,10 @@ class ExtensionUploadPacker
     /**
      * @param string $extensionKey
      * @param array $extensionData
-     * @param string $username
-     * @param string $password
      * @param string $comment
      * @return array
      */
-    public function createSoapData($extensionKey, $extensionData, $username, $password, $comment = '')
+    protected function createSoapData($extensionKey, $extensionData, $comment = '')
     {
 
         // Create dependency / conflict information:
@@ -177,7 +172,6 @@ class ExtensionUploadPacker
      */
     protected function createFileDataArray($directory)
     {
-
         // Initialize output array:
         $uploadArray = [];
         $uploadArray['extKey'] = rtrim(pathinfo($directory, PATHINFO_FILENAME), '/');
@@ -192,7 +186,7 @@ class ExtensionUploadPacker
         $iterator = new \RecursiveIteratorIterator($directoryIterator);
         foreach ($iterator as $file) {
             /** @var \SplFileInfo $file */
-            if (true === $this->isFilePermitted($file, $directory)) {
+            if ($this->isFilePermitted($file, $directory)) {
                 $filename = $file->getPathname();
                 $relativeFilename = substr($filename, $directoryLength);
                 $extension = pathinfo($filename, PATHINFO_EXTENSION);
@@ -203,7 +197,7 @@ class ExtensionUploadPacker
                     'is_executable' => is_executable($file),
                     'content' => file_get_contents($file)
                 ];
-                if (true === in_array($extension, ['php', 'inc'])) {
+                if (in_array($extension, ['php', 'inc'], true)) {
                     $uploadArray['FILES'][$relativeFilename]['codelines'] = count(explode(PHP_EOL, $uploadArray['FILES'][$relativeFilename]['content']));
                     $uploadArray['misc']['codelines'] += $uploadArray['FILES'][$relativeFilename]['codelines'];
                     $uploadArray['misc']['codebytes'] += $uploadArray['FILES'][$relativeFilename]['size'];
@@ -220,7 +214,7 @@ class ExtensionUploadPacker
      * @param string $inPath
      * @return bool
      */
-    protected function isFilePermitted(\SplFileInfo $file, $inPath)
+    private function isFilePermitted(\SplFileInfo $file, $inPath)
     {
         $name = $file->getFilename();
         if (true === $this->isDotFileAndNotPermitted($name)) {
@@ -239,7 +233,7 @@ class ExtensionUploadPacker
      * @param string $filename
      * @return bool
      */
-    protected function isDotFileAndNotPermitted($filename)
+    private function isDotFileAndNotPermitted($filename)
     {
         return !empty($filename) && '.' === $filename[0]
         && !in_array($filename, $this->permittedDotFiles, true);

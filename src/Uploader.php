@@ -22,9 +22,9 @@ class Uploader
      * @param Connection $connection
      * @param ExtensionUploadPacker $packer
      */
-    public function __construct(Connection $connection = null, ExtensionUploadPacker $packer = null)
+    public function __construct(Connection $connection, ExtensionUploadPacker $packer = null)
     {
-        $this->connection = $connection ?: new Connection();
+        $this->connection = $connection;
         $this->packer = $packer ?: new ExtensionUploadPacker();
     }
 
@@ -42,7 +42,7 @@ class Uploader
     {
         return $this->connection->call(
             Connection::FUNCTION_UPLOAD,
-            $this->packer->pack($directory, $username, $password, $comment, $extensionKey),
+            $this->packer->pack($directory, $comment, $extensionKey),
             $username,
             $password
         );
