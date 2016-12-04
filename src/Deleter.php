@@ -6,6 +6,20 @@ namespace NamelessCoder\TYPO3RepositoryClient;
  */
 class Deleter
 {
+    /**
+     * @var Connection
+     */
+    private $connection;
+
+    /**
+     * Deleter constructor.
+     *
+     * @param Connection $connection
+     */
+    public function __construct(Connection $connection = null)
+    {
+        $this->connection = $connection ?: new Connection();
+    }
 
     /**
      * @param string $extensionKey
@@ -13,27 +27,19 @@ class Deleter
      * @param string $username
      * @param string $password
      * @return array
+     * @throws \SoapFault
      */
     public function deleteExtensionVersion($extensionKey, $version, $username, $password)
     {
-        $compiler = new SoapDataCompiler();
-        $payload = $compiler->createSoapData($username, $password, [
+        $payload = [
             'extensionKey' => $extensionKey,
             'version' => $version
-        ]);
-        return $this->getConnection()->call(
+        ];
+        return $this->connection->call(
             Connection::FUNCTION_DELETEVERSION,
             $payload,
             $username,
             $password
         );
-    }
-
-    /**
-     * @return Connection
-     */
-    protected function getConnection()
-    {
-        return new Connection();
     }
 }
