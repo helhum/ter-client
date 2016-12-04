@@ -8,6 +8,7 @@ namespace NamelessCoder\TYPO3RepositoryClient\Cli\Command;
 
 use NamelessCoder\TYPO3RepositoryClient\Connection;
 use NamelessCoder\TYPO3RepositoryClient\ExtensionUploadPacker;
+use NamelessCoder\TYPO3RepositoryClient\Security\UsernamePasswordCredentials;
 use NamelessCoder\TYPO3RepositoryClient\Uploader;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\FormatterHelper;
@@ -95,8 +96,12 @@ class UploadCommand extends Command
             $password = $this->ask($input, $output, '<comment>Please specify a password:</comment> ', true);
         }
 
-        $uploader = new Uploader(Connection::create($wsdUrl), new ExtensionUploadPacker());
-        $result = $uploader->upload($directory, $username, $password, $comment, $extensionKey);
+        $uploadPacker = new ExtensionUploadPacker();
+        $connection = Connection::create($wsdUrl);
+        $result = $connection->upload(
+            new UsernamePasswordCredentials($username, $password),
+            $uploadPacker->pack($directory, $comment, $extensionKey)
+        );
 
         if (isset($result[Connection::SOAP_RETURN_VERSION])) {
             $output->writeln('<info>Successfully uploaded new version: ' . $result[Connection::SOAP_RETURN_VERSION] . '</info>');

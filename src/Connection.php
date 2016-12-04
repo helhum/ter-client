@@ -2,6 +2,7 @@
 namespace NamelessCoder\TYPO3RepositoryClient;
 
 use NamelessCoder\TYPO3RepositoryClient\Security\CredentialsInterface;
+use NamelessCoder\TYPO3RepositoryClient\Security\UsernamePasswordCredentials;
 
 /**
  * Class Connection
@@ -63,5 +64,21 @@ class Connection
             throw new \RuntimeException('TER command "' . $function . '" failed; code was ' . $output[self::SOAP_RETURN_CODE]);
         }
         return $output;
+    }
+
+    /**
+     * @param CredentialsInterface $credentials
+     * @param array $extensionData
+     * @return array|bool
+     * @throws \SoapFault
+     */
+    public function upload(CredentialsInterface $credentials, array $extensionData)
+    {
+        return $this->call(
+            $credentials,
+            Connection::FUNCTION_UPLOAD,
+            $extensionData
+        );
+
     }
 }
