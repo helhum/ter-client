@@ -1,6 +1,8 @@
 <?php
 namespace NamelessCoder\TYPO3RepositoryClient;
 
+use NamelessCoder\TYPO3RepositoryClient\Security\UsernamePasswordCredentials;
+
 /**
  * Class Deleter
  */
@@ -36,10 +38,9 @@ class Deleter
             'version' => $version
         ];
         return $this->connection->call(
+            new UsernamePasswordCredentials($username, $password),
             Connection::FUNCTION_DELETEVERSION,
-            $payload,
-            $username,
-            $password
+            $payload
         );
     }
 }

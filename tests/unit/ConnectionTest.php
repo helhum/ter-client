@@ -2,6 +2,7 @@
 namespace NamelessCoder\TYPO3RepositoryClient\tests\unit;
 
 use NamelessCoder\TYPO3RepositoryClient\Connection;
+use NamelessCoder\TYPO3RepositoryClient\Security\UsernamePasswordCredentials;
 
 /**
  * Class ConnectionTest
@@ -30,7 +31,7 @@ class ConnectionTest extends \PHPUnit_Framework_TestCase
         if (null !== $expectedExceptionType) {
             $this->setExpectedException($expectedExceptionType, $expectedExceptionMessage);
         }
-        $connection->call($function, $parameters, 'usernamefoobar', 'passwordfoobar');
+        $connection->call( new UsernamePasswordCredentials('usernamefoobar', 'passwordfoobar'), $function, $parameters);
     }
 
     /**

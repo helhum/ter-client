@@ -1,6 +1,8 @@
 <?php
 namespace NamelessCoder\TYPO3RepositoryClient;
 
+use NamelessCoder\TYPO3RepositoryClient\Security\CredentialsInterface;
+
 /**
  * Class Connection
  */
@@ -37,32 +39,27 @@ class Connection
     }
 
     /**
+     * @param CredentialsInterface $credentials
      * @param string $function
      * @param array $parameters
-     * @param string $username
-     * @param string $password
      * @return array|bool
      * @throws \SoapFault
      */
-    public function call($function, array $parameters, $username, $password)
+    public function call(CredentialsInterface $credentials, $function, array $parameters)
     {
-        $parameters = array_merge([
-            'accountData' => [
-                    'username' => $username,
-                    'password' => $password
-                ]
-            ],
+        $parameters = array_merge(
+            $credentials->createSoapAuthenticationData(),
             $parameters
         );
 
         $output = $this->client->__soapCall($function, $parameters, ['exceptions' => true, 'trace' => true]);
-        if (true === $output instanceof \SoapFault) {
+        if ($output instanceof \SoapFault) {
             throw $output;
         }
-        if (false === isset($output[self::SOAP_RETURN_CODE])) {
+        if (!isset($output[self::SOAP_RETURN_CODE])) {
             throw new \RuntimeException('TER command "' . $function . '" failed without a return code');
         }
-        if (self::SOAP_CODE_SUCCESS !== (integer) $output[self::SOAP_RETURN_CODE]) {
+        if (self::SOAP_CODE_SUCCESS !== (int)$output[self::SOAP_RETURN_CODE]) {
             throw new \RuntimeException('TER command "' . $function . '" failed; code was ' . $output[self::SOAP_RETURN_CODE]);
         }
         return $output;

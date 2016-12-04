@@ -9,6 +9,10 @@ class ExtensionUploadPacker
     const KIND_DEPENDENCY = 'depends';
     const KIND_CONFLICT = 'conflicts';
     const KIND_SUGGEST = 'suggests';
+
+    /**
+     * @var array
+     */
     protected $permittedDotFiles = ['.htaccess', '.htpasswd'];
 
     /**

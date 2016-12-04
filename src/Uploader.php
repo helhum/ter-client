@@ -1,6 +1,8 @@
 <?php
 namespace NamelessCoder\TYPO3RepositoryClient;
 
+use NamelessCoder\TYPO3RepositoryClient\Security\UsernamePasswordCredentials;
+
 /**
  * Class Uploader
  */
@@ -41,10 +43,9 @@ class Uploader
     public function upload($directory, $username, $password, $comment = '', $extensionKey = null)
     {
         return $this->connection->call(
+            new UsernamePasswordCredentials($username, $password),
             Connection::FUNCTION_UPLOAD,
-            $this->packer->pack($directory, $comment, $extensionKey),
-            $username,
-            $password
+            $this->packer->pack($directory, $comment, $extensionKey)
         );
     }
 }
