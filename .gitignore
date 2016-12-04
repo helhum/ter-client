@@ -1,5 +1,4 @@
 /.idea
 /vendor
-/bin/coveralls
-/bin/phpunit
+/bin
 /composer.lock
