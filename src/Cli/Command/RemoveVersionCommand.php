@@ -116,7 +116,8 @@ class RemoveVersionCommand extends Command
         $helperSet = new HelperSet(array(new FormatterHelper()));
         $questionHelper->setHelperSet($helperSet);
 
-        $question = (new Question($question))
+        $question = new Question($question);
+        $question
             ->setHidden($hidden)
             ->setHiddenFallback(true);
 
