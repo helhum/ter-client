@@ -33,10 +33,10 @@ class Deleter
      */
     public function deleteExtensionVersion($extensionKey, $version, $username, $password)
     {
-        $payload = [
+        $payload = array(
             'extensionKey' => $extensionKey,
             'version' => $version
-        ];
+        );
         return $this->connection->call(
             new UsernamePasswordCredentials($username, $password),
             Connection::FUNCTION_DELETEVERSION,

@@ -9,7 +9,6 @@ namespace NamelessCoder\TYPO3RepositoryClient\Cli\Command;
 use NamelessCoder\TYPO3RepositoryClient\Connection;
 use NamelessCoder\TYPO3RepositoryClient\ExtensionUploadPacker;
 use NamelessCoder\TYPO3RepositoryClient\Security\UsernamePasswordCredentials;
-use NamelessCoder\TYPO3RepositoryClient\Uploader;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\FormatterHelper;
 use Symfony\Component\Console\Helper\HelperSet;
@@ -38,13 +37,13 @@ class UploadCommand extends Command
             )
             ->addOption(
                 'username',
-                null,
+                '-u',
                 InputOption::VALUE_OPTIONAL,
                 'Username of account which is owner of the extension'
             )
             ->addOption(
                 'password',
-                null,
+                '-p',
                 InputOption::VALUE_OPTIONAL,
                 'Password of account which is owner of the extension'
             )
@@ -127,7 +126,7 @@ class UploadCommand extends Command
     private function ask(InputInterface $input, OutputInterface $output, $question, $hidden = false)
     {
         $questionHelper = new QuestionHelper();
-        $helperSet = new HelperSet([new FormatterHelper()]);
+        $helperSet = new HelperSet(array(new FormatterHelper()));
         $questionHelper->setHelperSet($helperSet);
 
         $question = (new Question($question))

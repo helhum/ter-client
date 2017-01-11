@@ -2,7 +2,6 @@
 namespace NamelessCoder\TYPO3RepositoryClient;
 
 use NamelessCoder\TYPO3RepositoryClient\Security\CredentialsInterface;
-use NamelessCoder\TYPO3RepositoryClient\Security\UsernamePasswordCredentials;
 
 /**
  * Class Connection
@@ -27,7 +26,8 @@ class Connection
      * @param string $wsdl
      * @return Connection
      */
-    public static function create($wsdl = self::WSDL_URL) {
+    public static function create($wsdl = self::WSDL_URL)
+    {
         return new self(new \SoapClient($wsdl));
     }
 
@@ -53,7 +53,7 @@ class Connection
             $parameters
         );
 
-        $output = $this->client->__soapCall($function, $parameters, ['exceptions' => true, 'trace' => true]);
+        $output = $this->client->__soapCall($function, $parameters, array('exceptions' => true, 'trace' => true));
         if ($output instanceof \SoapFault) {
             throw $output;
         }
@@ -76,9 +76,8 @@ class Connection
     {
         return $this->call(
             $credentials,
-            Connection::FUNCTION_UPLOAD,
+            self::FUNCTION_UPLOAD,
             $extensionData
         );
-
     }
 }

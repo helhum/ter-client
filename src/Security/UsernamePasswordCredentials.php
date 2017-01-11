@@ -48,12 +48,13 @@ class UsernamePasswordCredentials implements CredentialsInterface
     /**
      * @return array
      */
-    public function createSoapAuthenticationData() {
-        return [
-            'accountData' => [
+    public function createSoapAuthenticationData()
+    {
+        return array(
+            'accountData' => array(
                     'username' => $this->username,
                     'password' => $this->password
-                ]
-            ];
+                )
+            );
     }
 }

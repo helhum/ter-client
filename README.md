@@ -1,8 +1,6 @@
 TYPO3 Repository Client API/CLI
 ===============================
 
-[![Build Status](https://img.shields.io/travis/NamelessCoder/typo3-repository-client.svg?style=flat-square&label=package)](https://travis-ci.org/NamelessCoder/typo3-repository-client) [![Coverage Status](https://img.shields.io/coveralls/NamelessCoder/typo3-repository-client.svg?style=flat-square)](https://coveralls.io/r/NamelessCoder/typo3-repository-client)
-
 TYPO3 Extension Repository (TER) client library and CLI commands
 
 Usage
@@ -15,36 +13,18 @@ Each command which can be executed has a corresponding class, for example `Namel
 As component:
 
 ```php
-$uploader = new \NamelessCoder\TYPO3RepositoryClient\Uploader();
-$uploader->upload('/path/to/extension', 'myusername', 'mypassword', 'An optional comment');
+$uploadPacker = new ExtensionUploadPacker();
+$connection = Connection::create($wsdUrl);
+$result = $connection->upload(
+    new UsernamePasswordCredentials($username, $password),
+    $uploadPacker->pack($directory, $comment, $extensionKey)
+);
 ```
 
 And as CLI command:
 
 ```bash
-./bin/upload /path/to/extension myusername mypassword "An optional comment"
-```
-
-### Version Updater (local)
-
-As component:
-
-```php
-$versioner = new \NamelessCoder\TYPO3RepositoryClient\Versioner();
-$version = $versioner->read('/path/to/extension/');
-$version[0] = '1.2.3';
-$version[1] = 'beta';
-$versioner->write('/path/to/extension/', '1.2.3', 'beta');
-
-```
-
-And as CLI command:
-
-```bash
-# with all parameters
-./bin/setversion 1.2.3 beta /optional/path/to/extension/
-# without changing current stability:
-./bin/setversion 1.2.3
+./ter-client upload /path/to/extension -u myusername -p mypassword -m
 ```
 
 ### Version Deleter (admins only)
@@ -52,12 +32,12 @@ And as CLI command:
 As component:
 
 ```php
-$deleter = new \NamelessCoder\TYPO3RepositoryClient\VersionDeleter();
-$deleter->deleteExtensionVersion('extensionkey', '1.2.3', 'myusername', 'mypassword');
+$deleter = new Deleter(Connection::create($wsdUrl));
+$result = $deleter->deleteExtensionVersion($extensionKey, $version, $username, $password);
 ```
 
 And as CLI command:
 
 ```bash
-./bin/rmversion extensionkey 1.2.3 myusername mypassword
+./ter-client remove-version extensionkey 1.2.3 -u myusername -p mypassword
 ```

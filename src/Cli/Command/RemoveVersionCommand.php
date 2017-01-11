@@ -41,13 +41,13 @@ class RemoveVersionCommand extends Command
             )
             ->addOption(
                 'username',
-                null,
+                '-u',
                 InputOption::VALUE_OPTIONAL,
                 'Username of account which is owner of the extension'
             )
             ->addOption(
                 'password',
-                null,
+                '-p',
                 InputOption::VALUE_OPTIONAL,
                 'Password of account which is owner of the extension'
             )
@@ -113,7 +113,7 @@ class RemoveVersionCommand extends Command
     private function ask(InputInterface $input, OutputInterface $output, $question, $hidden = false)
     {
         $questionHelper = new QuestionHelper();
-        $helperSet = new HelperSet([new FormatterHelper()]);
+        $helperSet = new HelperSet(array(new FormatterHelper()));
         $questionHelper->setHelperSet($helperSet);
 
         $question = (new Question($question))

@@ -15,12 +15,12 @@ class UsernamePasswordCredentialsTest extends \PHPUnit_Framework_TestCase
     {
         $upc = new UsernamePasswordCredentials('user', 'pass');
         $this->assertSame(
-            [
-                'accountData' => [
+            array(
+                'accountData' => array(
                     'username' => 'user',
                     'password' => 'pass'
-                ]
-            ],
+                )
+            ),
             $upc->createSoapAuthenticationData()
         );
     }

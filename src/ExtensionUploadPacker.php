@@ -13,7 +13,7 @@ class ExtensionUploadPacker
     /**
      * @var array
      */
-    protected $permittedDotFiles = ['.htaccess', '.htpasswd'];
+    protected $permittedDotFiles = array('.htaccess', '.htpasswd');
 
     /**
      * @param string $directory
@@ -43,7 +43,7 @@ class ExtensionUploadPacker
         if (false === file_exists($expectedFilename)) {
             throw new \RuntimeException('Directory "' . $directory . "' does not contain an ext_emconf.php file");
         }
-        $EM_CONF = [];
+        $EM_CONF = array();
         include $expectedFilename;
         $this->validateVersionNumber($EM_CONF[$_EXTKEY]['version']);
         return $EM_CONF[$_EXTKEY];
@@ -71,7 +71,7 @@ class ExtensionUploadPacker
      */
     private function createDependenciesArray($extensionData, $key)
     {
-        $dependenciesArr = [];
+        $dependenciesArr = array();
         if (false === isset($extensionData['EM_CONF']['constraints'][$key])) {
             return $dependenciesArr;
         }
@@ -82,11 +82,11 @@ class ExtensionUploadPacker
             if (false === is_string($extKey)) {
                 throw new \RuntimeException('Invalid dependency definition! Dependencies must be an array indexed by extension key');
             }
-            $dependenciesArr[] = [
+            $dependenciesArr[] = array(
                 'kind' => $key,
                 'extensionKey' => $extKey,
                 'versionRange' => $version,
-            ];
+            );
         }
         return $dependenciesArr;
     }
@@ -117,10 +117,10 @@ class ExtensionUploadPacker
         $dependenciesArr = array_merge($dependenciesArr, $this->createDependenciesArray($extensionData, self::KIND_SUGGEST));
 
         // Compile data for SOAP call:
-        $extension = [
+        $extension = array(
             'extensionKey' => $extensionKey,
             'version' => $this->valueOrDefault($extensionData, 'version'),
-            'metaData' => [
+            'metaData' => array(
                 'title' => $this->valueOrDefault($extensionData, 'title'),
                 'description' => $this->valueOrDefault($extensionData, 'description'),
                 'category' => $this->valueOrDefault($extensionData, 'category'),
@@ -128,8 +128,8 @@ class ExtensionUploadPacker
                 'authorName' => $this->valueOrDefault($extensionData, 'author'),
                 'authorEmail' => $this->valueOrDefault($extensionData, 'author_email'),
                 'authorCompany' => $this->valueOrDefault($extensionData, 'author_company'),
-            ],
-            'technicalData' => [
+            ),
+            'technicalData' => array(
                 'dependencies' => $dependenciesArr,
                 'loadOrder' => $this->valueOrDefault($extensionData, 'loadOrder'),
                 'uploadFolder' => (boolean) $this->valueOrDefault($extensionData, 'uploadFolder'),
@@ -142,32 +142,32 @@ class ExtensionUploadPacker
                 'lockType' => $this->valueOrDefault($extensionData, 'lockType'),
                 'doNotLoadInFEe' => $this->valueOrDefault($extensionData, 'doNotLoadInFE'),
                 'docPath' => $this->valueOrDefault($extensionData, 'docPath'),
-            ],
-            'infoData' => [
+            ),
+            'infoData' => array(
                 'codeLines' => intval($extensionData['misc']['codelines']),
                 'codeBytes' => intval($extensionData['misc']['codebytes']),
                 'codingGuidelinesCompliance' => $this->valueOrDefault($extensionData, 'CGLcompliance'),
                 'codingGuidelinesComplianceNotes' => $this->valueOrDefault($extensionData, 'CGLcompliance_note'),
                 'uploadComment' => $comment,
                 'techInfo' => $extensionData['techInfo'],
-            ],
-        ];
+            ),
+        );
 
-        $files = [];
+        $files = array();
         foreach ($extensionData['FILES'] as $filename => $infoArr) {
-            $files[] = [
+            $files[] = array(
                 'name' => $infoArr['name'],
                 'size' => intval($infoArr['size']),
                 'modificationTime' => intval($infoArr['mtime']),
                 'isExecutable' => intval($infoArr['is_executable']),
                 'content' => $infoArr['content'],
                 'contentMD5' => $infoArr['content_md5'],
-            ];
+            );
         }
-        return [
+        return array(
             'extensionData' => $extension,
             'filesData' => $files
-        ];
+        );
     }
 
     /**
@@ -177,14 +177,14 @@ class ExtensionUploadPacker
     protected function createFileDataArray($directory)
     {
         // Initialize output array:
-        $uploadArray = [];
+        $uploadArray = array();
         $uploadArray['extKey'] = rtrim(pathinfo($directory, PATHINFO_FILENAME), '/');
         $uploadArray['misc']['codelines'] = 0;
         $uploadArray['misc']['codebytes'] = 0;
 
         $uploadArray['techInfo'] = 'All good, baby';
 
-        $uploadArray['FILES'] = [];
+        $uploadArray['FILES'] = array();
         $directoryLength = strlen(rtrim($directory, '/')) + 1;
         $directoryIterator = new \RecursiveDirectoryIterator($directory, \RecursiveDirectoryIterator::SKIP_DOTS);
         $iterator = new \RecursiveIteratorIterator($directoryIterator);
@@ -194,14 +194,14 @@ class ExtensionUploadPacker
                 $filename = $file->getPathname();
                 $relativeFilename = substr($filename, $directoryLength);
                 $extension = pathinfo($filename, PATHINFO_EXTENSION);
-                $uploadArray['FILES'][$relativeFilename] = [
+                $uploadArray['FILES'][$relativeFilename] = array(
                     'name' => $relativeFilename,
                     'size' => filesize($file),
                     'mtime' => filemtime($file),
                     'is_executable' => is_executable($file),
                     'content' => file_get_contents($file)
-                ];
-                if (in_array($extension, ['php', 'inc'], true)) {
+                );
+                if (in_array($extension, array('php', 'inc'), true)) {
                     $uploadArray['FILES'][$relativeFilename]['codelines'] = count(explode(PHP_EOL, $uploadArray['FILES'][$relativeFilename]['content']));
                     $uploadArray['misc']['codelines'] += $uploadArray['FILES'][$relativeFilename]['codelines'];
                     $uploadArray['misc']['codebytes'] += $uploadArray['FILES'][$relativeFilename]['size'];
