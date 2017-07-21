@@ -61,20 +61,6 @@ class UploadCommand extends Command
         $this->setDescription('Uploads the given directory to TER');
     }
 
-    protected function interact(InputInterface $input, OutputInterface $output)
-    {
-        $username = $input->getOption('username');
-        $password = $input->getOption('password');
-        while (empty($username)) {
-            $username = $this->ask($input, $output, '<comment>Please specify a username:</comment> ');
-        }
-        while (empty($password)) {
-            $password = $this->ask($input, $output, '<comment>Please specify a password:</comment> ', true);
-        }
-        $input->setOption('username', $username);
-        $input->setOption('password', $password);
-    }
-
     /**
      * Execute
      *
@@ -92,6 +78,13 @@ class UploadCommand extends Command
         $password = $input->getOption('password');
         $comment = $input->getOption('upload-comment');
         $wsdUrl = $input->getOption('wsd-url');
+
+        while (empty($username)) {
+            $username = $this->ask($input, $output, '<comment>Please specify a username:</comment> ');
+        }
+        while (empty($password)) {
+            $password = $this->ask($input, $output, '<comment>Please specify a password:</comment> ', true);
+        }
 
         $uploadPacker = new ExtensionUploadPacker();
         $connection = Connection::create($wsdUrl);
