@@ -1,5 +1,5 @@
 {
-    "name": "namelesscoder/typo3-repository-client",
+    "name": "helhum/typo3-repository-client",
     "description": "Client for interacting with the official TYPO3 Extension Repository (TER). Contains API and CLI scripts.",
     "license": "MIT",
     "authors": [
