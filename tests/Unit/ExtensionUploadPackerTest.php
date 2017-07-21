@@ -111,7 +111,7 @@ class ExtensionUploadPackerTest extends \PHPUnit_Framework_TestCase
             array('validateVersionNumber')
         );
         $packer->expects($this->once())->method('validateVersionNumber');
-        $result = $packer->pack($directory, 'comment');
+        $result = $packer->pack(basename($directory), $directory,'comment');
         $expected = array(
             'extensionData' => array(
                 'extensionKey' => 'temp',
@@ -217,7 +217,7 @@ class ExtensionUploadPackerTest extends \PHPUnit_Framework_TestCase
         $mock->expects($this->once())->method('createSoapData')
             ->with($extensionKey, array('foo' => 'bar', 'EM_CONF' => $configuration), 'commentfoo')
             ->will($this->returnValue('test'));
-        $result = $mock->pack($directory, 'commentfoo');
+        $result = $mock->pack($extensionKey, $directory, 'commentfoo');
         $this->assertEquals('test', $result);
     }
 
