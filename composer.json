@@ -33,8 +33,5 @@
     },
     "bin": [
         "ter-client"
-    ],
-    "config": {
-        "bin-dir": "bin"
-    }
+    ]
 }
