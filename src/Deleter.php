@@ -1,7 +1,7 @@
 <?php
-namespace NamelessCoder\TYPO3RepositoryClient;
+namespace Helhum\TerClient;
 
-use NamelessCoder\TYPO3RepositoryClient\Security\UsernamePasswordCredentials;
+use Helhum\TerClient\Security\UsernamePasswordCredentials;
 
 /**
  * Class Deleter

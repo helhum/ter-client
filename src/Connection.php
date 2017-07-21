@@ -1,7 +1,7 @@
 <?php
-namespace NamelessCoder\TYPO3RepositoryClient;
+namespace Helhum\TerClient;
 
-use NamelessCoder\TYPO3RepositoryClient\Security\CredentialsInterface;
+use Helhum\TerClient\Security\CredentialsInterface;
 
 class Connection
 {

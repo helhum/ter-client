@@ -10,6 +10,6 @@ foreach (array(__DIR__ . '/../../autoload.php', __DIR__ . '/../vendor/autoload.p
 }
 
 $app = new \Symfony\Component\Console\Application('TYPO3 TER CLI client', '0.1.0');
-$app->add(new \NamelessCoder\TYPO3RepositoryClient\Cli\Command\UploadCommand());
-$app->add(new \NamelessCoder\TYPO3RepositoryClient\Cli\Command\RemoveVersionCommand());
+$app->add(new \Helhum\TerClient\Cli\Command\UploadCommand());
+$app->add(new \Helhum\TerClient\Cli\Command\RemoveVersionCommand());
 $app->run();

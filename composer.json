@@ -1,12 +1,8 @@
 {
-    "name": "helhum/typo3-repository-client",
-    "description": "Client for interacting with the official TYPO3 Extension Repository (TER). Contains API and CLI scripts.",
+    "name": "helhum/ter-client",
+    "description": "Client for interacting with the official TYPO3 Extension Repository (TER). Contains API Symfony Commands",
     "license": "MIT",
     "authors": [
-        {
-            "name": "Claus Due",
-            "email": "claus@namelesscoder.net"
-        },
         {
             "name": "Helmut Hummel",
             "email": "info@helhum.io"
@@ -14,12 +10,12 @@
     ],
     "autoload": {
         "psr-4": {
-            "NamelessCoder\\TYPO3RepositoryClient\\": "src/"
+            "Helhum\\TerClient\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "NamelessCoder\\TYPO3RepositoryClient\\Tests\\Unit\\": "tests/unit/"
+            "Helhum\\TerClient\\Tests\\Unit\\": "tests/Unit/"
         }
     },
     "require": {

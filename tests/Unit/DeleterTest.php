@@ -1,8 +1,8 @@
 <?php
-namespace NamelessCoder\TYPO3RepositoryClient\tests\unit;
+namespace Helhum\TerClient\Tests\Unit;
 
-use NamelessCoder\TYPO3RepositoryClient\Connection;
-use NamelessCoder\TYPO3RepositoryClient\Deleter;
+use Helhum\TerClient\Connection;
+use Helhum\TerClient\Deleter;
 
 /**
  * Class DeleterTest

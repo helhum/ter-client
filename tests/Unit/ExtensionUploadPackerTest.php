@@ -1,7 +1,7 @@
 <?php
-namespace NamelessCoder\TYPO3RepositoryClient\tests\unit;
+namespace Helhum\TerClient\Tests\Unit;
 
-use NamelessCoder\TYPO3RepositoryClient\ExtensionUploadPacker;
+use Helhum\TerClient\ExtensionUploadPacker;
 use org\bovigo\vfs\vfsStream;
 use org\bovigo\vfs\vfsStreamDirectory;
 use org\bovigo\vfs\vfsStreamFile;
@@ -106,9 +106,9 @@ class ExtensionUploadPackerTest extends \PHPUnit_Framework_TestCase
     public function testCreateSoapDataCreatesExpectedOutput()
     {
         $directory = vfsStream::url('temp');
-        /** @var \NamelessCoder\TYPO3RepositoryClient\ExtensionUploadPacker|\PHPUnit_Framework_MockObject_MockObject $packer */
+        /** @var \Helhum\TerClient\ExtensionUploadPacker|\PHPUnit_Framework_MockObject_MockObject $packer */
         $packer = $this->getMock(
-            'NamelessCoder\\TYPO3RepositoryClient\\ExtensionUploadPacker',
+            'Helhum\\TerClient\\ExtensionUploadPacker',
             array('validateVersionNumber')
         );
         $packer->expects($this->once())->method('validateVersionNumber');
@@ -205,9 +205,9 @@ class ExtensionUploadPackerTest extends \PHPUnit_Framework_TestCase
     {
         $directory = vfsStream::url('temp');
         $extensionKey = 'temp';
-        /** @var \NamelessCoder\TYPO3RepositoryClient\ExtensionUploadPacker|\PHPUnit_Framework_MockObject_MockObject $mock */
+        /** @var \Helhum\TerClient\ExtensionUploadPacker|\PHPUnit_Framework_MockObject_MockObject $mock */
         $mock = $this->getMock(
-            'NamelessCoder\\TYPO3RepositoryClient\\ExtensionUploadPacker',
+            'Helhum\\TerClient\\ExtensionUploadPacker',
             array('createFileDataArray', 'createSoapData', 'validateVersionNumber')
         );
         $method = new \ReflectionMethod($mock, 'readExtensionConfigurationFile');

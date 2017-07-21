@@ -1,7 +1,7 @@
 <?php
-namespace NamelessCoder\TYPO3RepositoryClient\tests\unit;
+namespace Helhum\TerClient\Tests\Unit;
 
-use NamelessCoder\TYPO3RepositoryClient\Security\UsernamePasswordCredentials;
+use Helhum\TerClient\Security\UsernamePasswordCredentials;
 
 /**
  * Class UsernamePasswordCredentialsTest

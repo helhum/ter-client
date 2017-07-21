@@ -1,9 +1,9 @@
 <?php
-namespace NamelessCoder\TYPO3RepositoryClient\Cli\Command;
+namespace Helhum\TerClient\Cli\Command;
 
-use NamelessCoder\TYPO3RepositoryClient\Connection;
-use NamelessCoder\TYPO3RepositoryClient\ExtensionUploadPacker;
-use NamelessCoder\TYPO3RepositoryClient\Security\UsernamePasswordCredentials;
+use Helhum\TerClient\Connection;
+use Helhum\TerClient\ExtensionUploadPacker;
+use Helhum\TerClient\Security\UsernamePasswordCredentials;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\FormatterHelper;
 use Symfony\Component\Console\Helper\HelperSet;

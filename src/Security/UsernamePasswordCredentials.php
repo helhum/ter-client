@@ -1,5 +1,5 @@
 <?php
-namespace NamelessCoder\TYPO3RepositoryClient\Security;
+namespace Helhum\TerClient\Security;
 
 /***************************************************************
  *  Copyright notice

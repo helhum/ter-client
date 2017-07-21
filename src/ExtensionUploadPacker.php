@@ -1,5 +1,5 @@
 <?php
-namespace NamelessCoder\TYPO3RepositoryClient;
+namespace Helhum\TerClient;
 
 /**
  * Class ExtensionUploadPacker
