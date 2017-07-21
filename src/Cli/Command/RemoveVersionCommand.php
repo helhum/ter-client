@@ -1,11 +1,6 @@
 <?php
 namespace NamelessCoder\TYPO3RepositoryClient\Cli\Command;
 
-/*                                                                        *
- * This script belongs to the TYPO3 project "TYPO3 Surf".                 *
- *                                                                        *
- *                                                                        */
-
 use NamelessCoder\TYPO3RepositoryClient\Connection;
 use NamelessCoder\TYPO3RepositoryClient\Deleter;
 use Symfony\Component\Console\Command\Command;

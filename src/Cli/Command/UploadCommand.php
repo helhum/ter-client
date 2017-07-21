@@ -1,11 +1,6 @@
 <?php
 namespace NamelessCoder\TYPO3RepositoryClient\Cli\Command;
 
-/*                                                                        *
- * This script belongs to the TYPO3 project "TYPO3 Surf".                 *
- *                                                                        *
- *                                                                        */
-
 use NamelessCoder\TYPO3RepositoryClient\Connection;
 use NamelessCoder\TYPO3RepositoryClient\ExtensionUploadPacker;
 use NamelessCoder\TYPO3RepositoryClient\Security\UsernamePasswordCredentials;
@@ -19,9 +14,6 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Question\Question;
 
-/**
- * Upload command
- */
 class UploadCommand extends Command
 {
     /**

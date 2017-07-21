@@ -3,9 +3,6 @@ namespace NamelessCoder\TYPO3RepositoryClient;
 
 use NamelessCoder\TYPO3RepositoryClient\Security\CredentialsInterface;
 
-/**
- * Class Connection
- */
 class Connection
 {
     const SOAP_RETURN_CODE = 'resultCode';
