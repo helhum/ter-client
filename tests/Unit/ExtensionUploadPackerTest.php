@@ -7,9 +7,6 @@ use org\bovigo\vfs\vfsStreamDirectory;
 use org\bovigo\vfs\vfsStreamFile;
 use org\bovigo\vfs\vfsStreamWrapper;
 
-/**
- * Class ExtensionUploadPackerTest
- */
 class ExtensionUploadPackerTest extends \PHPUnit_Framework_TestCase
 {
     /**

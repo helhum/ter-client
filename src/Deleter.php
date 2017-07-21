@@ -3,9 +3,6 @@ namespace Helhum\TerClient;
 
 use Helhum\TerClient\Security\UsernamePasswordCredentials;
 
-/**
- * Class Deleter
- */
 class Deleter
 {
     /**

@@ -4,9 +4,6 @@ namespace Helhum\TerClient\Tests\Unit;
 use Helhum\TerClient\Connection;
 use Helhum\TerClient\Deleter;
 
-/**
- * Class DeleterTest
- */
 class DeleterTest extends \PHPUnit_Framework_TestCase
 {
     public function testDelete()

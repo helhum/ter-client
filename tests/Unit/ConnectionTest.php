@@ -4,9 +4,6 @@ namespace Helhum\TerClient\Tests\Unit;
 use Helhum\TerClient\Connection;
 use Helhum\TerClient\Security\UsernamePasswordCredentials;
 
-/**
- * Class ConnectionTest
- */
 class ConnectionTest extends \PHPUnit_Framework_TestCase
 {
     /**

@@ -1,9 +1,6 @@
 <?php
 namespace Helhum\TerClient;
 
-/**
- * Class ExtensionUploadPacker
- */
 class ExtensionUploadPacker
 {
     const KIND_DEPENDENCY = 'depends';
