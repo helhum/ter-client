@@ -53,8 +53,8 @@ class UsernamePasswordCredentials implements CredentialsInterface
         return array(
             'accountData' => array(
                     'username' => $this->username,
-                    'password' => $this->password
-                )
+                    'password' => $this->password,
+                ),
             );
     }
 }

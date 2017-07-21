@@ -28,14 +28,14 @@ class Deleter
      * @param string $version
      * @param string $username
      * @param string $password
-     * @return array
      * @throws \SoapFault
+     * @return array
      */
     public function deleteExtensionVersion($extensionKey, $version, $username, $password)
     {
         $payload = array(
             'extensionKey' => $extensionKey,
-            'version' => $version
+            'version' => $version,
         );
         return $this->connection->call(
             new UsernamePasswordCredentials($username, $password),

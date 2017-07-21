@@ -12,7 +12,6 @@ use org\bovigo\vfs\vfsStreamWrapper;
  */
 class ExtensionUploadPackerTest extends \PHPUnit_Framework_TestCase
 {
-
     /**
      * @var array
      */
@@ -24,7 +23,7 @@ class ExtensionUploadPackerTest extends \PHPUnit_Framework_TestCase
         'lockType' => '', 'author' => 'Author Name', 'author_email' => 'author@domain.com',
         'author_company' => '', 'CGLcompliance' => '', 'CGLcompliance_note' => '',
         'constraints' => array('depends' => array('typo3' => '6.1.0-6.2.99', 'cms' => ''), 'conflicts' => array(), 'suggests' => array('news' => '')),
-        '_md5_values_when_last_written' => ''
+        '_md5_values_when_last_written' => '',
     );
 
     /**
@@ -74,7 +73,7 @@ class ExtensionUploadPackerTest extends \PHPUnit_Framework_TestCase
             array('-1.0.0'),
             array('1.0.0-dev'),
             array('test-tag'),
-            array('accidental.dotcount.match')
+            array('accidental.dotcount.match'),
         );
     }
 
@@ -99,7 +98,7 @@ class ExtensionUploadPackerTest extends \PHPUnit_Framework_TestCase
         return array(
             array('0.0.1'),
             array('1.2.3'),
-            array('3.2.1')
+            array('3.2.1'),
         );
     }
 
@@ -113,11 +112,11 @@ class ExtensionUploadPackerTest extends \PHPUnit_Framework_TestCase
         );
         $packer->expects($this->once())->method('validateVersionNumber');
         $result = $packer->pack($directory, 'comment');
-        $expected =  array(
-            'extensionData' =>  array(
+        $expected = array(
+            'extensionData' => array(
                 'extensionKey' => 'temp',
                 'version' => '1.2.3-invalid',
-                'metaData' =>  array(
+                'metaData' => array(
                     'title' => 'Dummy title',
                     'description' => 'Dummy description',
                     'category' => 'misc',
@@ -126,8 +125,8 @@ class ExtensionUploadPackerTest extends \PHPUnit_Framework_TestCase
                     'authorEmail' => 'author@domain.com',
                     'authorCompany' => '',
                 ),
-                'technicalData' =>  array(
-                    'dependencies' =>  array(
+                'technicalData' => array(
+                    'dependencies' => array(
                          array(
                             'kind' => 'depends',
                             'extensionKey' => 'typo3',
@@ -142,7 +141,7 @@ class ExtensionUploadPackerTest extends \PHPUnit_Framework_TestCase
                             'kind' => 'suggests',
                             'extensionKey' => 'news',
                             'versionRange' => '',
-                        )
+                        ),
                     ),
                     'loadOrder' => '',
                     'uploadFolder' => false,
@@ -156,7 +155,7 @@ class ExtensionUploadPackerTest extends \PHPUnit_Framework_TestCase
                     'doNotLoadInFEe' => null,
                     'docPath' => null,
                 ),
-                'infoData' =>  array(
+                'infoData' => array(
                     'codeLines' => 41,
                     'codeBytes' => 853,
                     'codingGuidelinesCompliance' => '',
@@ -165,7 +164,7 @@ class ExtensionUploadPackerTest extends \PHPUnit_Framework_TestCase
                     'techInfo' => 'All good, baby',
                 ),
             ),
-            'filesData' =>  array(
+            'filesData' => array(
                  array(
                     'name' => 'ext_emconf.php',
                     'size' => 853,
@@ -232,8 +231,8 @@ class ExtensionUploadPackerTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(array('extKey' => 'temp', 'misc' => array('codelines' => 41, 'codebytes' => 853),
             'techInfo' => 'All good, baby', 'FILES' => array('ext_emconf.php' => array('name' => 'ext_emconf.php',
             'size' => 853, 'mtime' => self::$mtime, 'is_executable' => false, 'content' => self::$fixtureString,
-            'content_md5' => 'f87088992115285f0932e1f765548085', 'codelines' => 41)
-        )), $result);
+            'content_md5' => 'f87088992115285f0932e1f765548085', 'codelines' => 41, ),
+        ), ), $result);
     }
 
     /**
@@ -297,29 +296,29 @@ class ExtensionUploadPackerTest extends \PHPUnit_Framework_TestCase
                             ExtensionUploadPacker::KIND_DEPENDENCY => array(
                                 'foobar' => '0.0.0-1.0.0',
                                 'foobar2' => '1.0.0-2.0.0',
-                            )
-                        )
-                    )
+                            ),
+                        ),
+                    ),
                 ),
                 array(
                     array('kind' => 'depends', 'extensionKey' => 'foobar', 'versionRange' => '0.0.0-1.0.0'),
                     array('kind' => 'depends', 'extensionKey' => 'foobar2', 'versionRange' => '1.0.0-2.0.0'),
                 ),
-                null
+                null,
             ),
             // no deps: empty output, no error
             array(
                 ExtensionUploadPacker::KIND_DEPENDENCY,
                 array('EM_CONF' => array()),
                 array(),
-                null
+                null,
             ),
             // deps setting not an array, empty output, no error
             array(
                 ExtensionUploadPacker::KIND_DEPENDENCY,
                 array('EM_CONF' => array('constraints' => array(ExtensionUploadPacker::KIND_DEPENDENCY => 'iamastring'))),
                 array(),
-                null
+                null,
             ),
             // deps numerically indexed - error!
             array(
@@ -327,12 +326,12 @@ class ExtensionUploadPackerTest extends \PHPUnit_Framework_TestCase
                 array(
                     'EM_CONF' => array(
                         'constraints' => array(
-                            ExtensionUploadPacker::KIND_DEPENDENCY => array(0 => array('0.0.0-1.0.0'))
-                        )
-                    )
+                            ExtensionUploadPacker::KIND_DEPENDENCY => array(0 => array('0.0.0-1.0.0')),
+                        ),
+                    ),
                 ),
                 array(),
-                'RuntimeException'
+                'RuntimeException',
             ),
         );
     }

@@ -40,8 +40,8 @@ class Connection
      * @param CredentialsInterface $credentials
      * @param string $function
      * @param array $parameters
-     * @return array|bool
      * @throws \SoapFault
+     * @return array|bool
      */
     public function call(CredentialsInterface $credentials, $function, array $parameters)
     {
@@ -66,8 +66,8 @@ class Connection
     /**
      * @param CredentialsInterface $credentials
      * @param array $extensionData
-     * @return array|bool
      * @throws \SoapFault
+     * @return array|bool
      */
     public function upload(CredentialsInterface $credentials, array $extensionData)
     {

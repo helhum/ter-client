@@ -19,8 +19,8 @@ class ExtensionUploadPacker
      * @param string $extensionKey
      * @param string $directory
      * @param string $comment
-     * @return array
      * @throws \RuntimeException
+     * @return array
      */
     public function pack($extensionKey, $directory, $comment = '')
     {
@@ -33,8 +33,8 @@ class ExtensionUploadPacker
     /**
      * @param string $directory
      * @param string $_EXTKEY
-     * @return array
      * @throws \RuntimeException
+     * @return array
      */
     private function readExtensionConfigurationFile($directory, $_EXTKEY)
     {
@@ -65,8 +65,8 @@ class ExtensionUploadPacker
     /**
      * @param string $extensionData
      * @param string $key
-     * @return array
      * @throws \RuntimeException
+     * @return array
      */
     private function createDependenciesArray($extensionData, $key)
     {
@@ -109,7 +109,6 @@ class ExtensionUploadPacker
      */
     protected function createSoapData($extensionKey, $extensionData, $comment = '')
     {
-
         // Create dependency / conflict information:
         $dependenciesArr = $this->createDependenciesArray($extensionData, self::KIND_DEPENDENCY);
         $dependenciesArr = array_merge($dependenciesArr, $this->createDependenciesArray($extensionData, self::KIND_CONFLICT));
@@ -131,13 +130,13 @@ class ExtensionUploadPacker
             'technicalData' => array(
                 'dependencies' => $dependenciesArr,
                 'loadOrder' => $this->valueOrDefault($extensionData, 'loadOrder'),
-                'uploadFolder' => (boolean) $this->valueOrDefault($extensionData, 'uploadFolder'),
+                'uploadFolder' => (bool) $this->valueOrDefault($extensionData, 'uploadFolder'),
                 'createDirs' => $this->valueOrDefault($extensionData, 'createDirs'),
                 'shy' => $this->valueOrDefault($extensionData, 'shy', false),
                 'modules' => $this->valueOrDefault($extensionData, 'module'),
                 'modifyTables' => $this->valueOrDefault($extensionData, 'modify_tables'),
                 'priority' => $this->valueOrDefault($extensionData, 'priority'),
-                'clearCacheOnLoad' => (boolean) $this->valueOrDefault($extensionData, 'clearCacheOnLoad'),
+                'clearCacheOnLoad' => (bool) $this->valueOrDefault($extensionData, 'clearCacheOnLoad'),
                 'lockType' => $this->valueOrDefault($extensionData, 'lockType'),
                 'doNotLoadInFEe' => $this->valueOrDefault($extensionData, 'doNotLoadInFE'),
                 'docPath' => $this->valueOrDefault($extensionData, 'docPath'),
@@ -165,7 +164,7 @@ class ExtensionUploadPacker
         }
         return array(
             'extensionData' => $extension,
-            'filesData' => $files
+            'filesData' => $files,
         );
     }
 
@@ -198,7 +197,7 @@ class ExtensionUploadPacker
                     'size' => filesize($file),
                     'mtime' => filemtime($file),
                     'is_executable' => is_executable($file),
-                    'content' => file_get_contents($file)
+                    'content' => file_get_contents($file),
                 );
                 if (in_array($extension, array('php', 'inc'), true)) {
                     $uploadArray['FILES'][$relativeFilename]['codelines'] = count(explode(PHP_EOL, $uploadArray['FILES'][$relativeFilename]['content']));

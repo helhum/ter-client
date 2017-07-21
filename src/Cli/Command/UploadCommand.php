@@ -75,15 +75,14 @@ class UploadCommand extends Command
         $input->setOption('password', $password);
     }
 
-
     /**
      * Execute
      *
      * @param InputInterface $input
      * @param OutputInterface $output
      *
-     * @return null|int null or 0 if everything went fine, or an error code
      * @throws \SoapFault
+     * @return null|int null or 0 if everything went fine, or an error code
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {

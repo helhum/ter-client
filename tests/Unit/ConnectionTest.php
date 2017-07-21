@@ -14,6 +14,7 @@ class ConnectionTest extends \PHPUnit_Framework_TestCase
      * @param string $function
      * @param mixed $output
      * @param string $expectedExceptionMessage
+     * @param mixed $expectedExceptionType
      */
     public function testCall($function, $output, $expectedExceptionMessage, $expectedExceptionType)
     {
@@ -22,7 +23,7 @@ class ConnectionTest extends \PHPUnit_Framework_TestCase
                 'username' => 'usernamefoobar',
                 'password' => 'passwordfoobar',
             ),
-            'foo' => 'bar'
+            'foo' => 'bar',
         );
         $settings = array('exceptions' => true, 'trace' => true);
         $clientMock = $this->getMockBuilder('SoapClient')->disableOriginalConstructor()->getMock();
@@ -43,7 +44,7 @@ class ConnectionTest extends \PHPUnit_Framework_TestCase
             array('test', array(Connection::SOAP_RETURN_CODE => Connection::SOAP_CODE_SUCCESS), null, null),
             array('test', array(), 'TER command "test" failed without a return code', 'RuntimeException'),
             array('test', array(Connection::SOAP_RETURN_CODE => 123), 'TER command "test" failed; code was 123', 'RuntimeException'),
-            array('test', new \SoapFault('Server', 'Probe error'), 'Probe error', 'SoapFault')
+            array('test', new \SoapFault('Server', 'Probe error'), 'Probe error', 'SoapFault'),
         );
     }
 }

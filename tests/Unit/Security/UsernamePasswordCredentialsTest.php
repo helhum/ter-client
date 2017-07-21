@@ -18,8 +18,8 @@ class UsernamePasswordCredentialsTest extends \PHPUnit_Framework_TestCase
             array(
                 'accountData' => array(
                     'username' => 'user',
-                    'password' => 'pass'
-                )
+                    'password' => 'pass',
+                ),
             ),
             $upc->createSoapAuthenticationData()
         );
