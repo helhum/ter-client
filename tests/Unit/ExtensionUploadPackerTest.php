@@ -37,8 +37,8 @@ class ExtensionUploadPackerTest extends \PHPUnit_Framework_TestCase
     {
         self::$mtime = time();
         self::$fixtureString = '<' . '?php
-			$EM_CONF[$_EXTKEY] = ' . var_export(self::$fixture, true) . ';
-		';
+            $EM_CONF[$_EXTKEY] = ' . var_export(self::$fixture, true) . ';
+        ';
         $emConf = new vfsStreamFile('ext_emconf.php');
         $emConf->setContent(self::$fixtureString);
         vfsStreamWrapper::register();
