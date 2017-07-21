@@ -24,7 +24,7 @@ $result = $connection->upload(
 And as CLI command:
 
 ```bash
-./ter-client upload /path/to/extension -u myusername -p mypassword -m
+ter-client upload /path/to/extension -u myusername -p mypassword -m
 ```
 
 ### Version Deleter (admins only)
@@ -39,5 +39,5 @@ $result = $deleter->deleteExtensionVersion($extensionKey, $version, $username, $
 And as CLI command:
 
 ```bash
-./ter-client remove-version extensionkey 1.2.3 -u myusername -p mypassword
+ter-client remove-version extensionkey 1.2.3 -u myusername -p mypassword
 ```
