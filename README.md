@@ -17,14 +17,14 @@ $uploadPacker = new ExtensionUploadPacker();
 $connection = Connection::create($wsdUrl);
 $result = $connection->upload(
     new UsernamePasswordCredentials($username, $password),
-    $uploadPacker->pack($directory, $comment, $extensionKey)
+    $uploadPacker->pack($extensionKey, $directory, $comment)
 );
 ```
 
 And as CLI command:
 
 ```bash
-ter-client upload /path/to/extension -u myusername -p mypassword -m
+ter-client upload ext_key /path/to/extension -u myusername -p mypassword -m
 ```
 
 ### Version Deleter (admins only)

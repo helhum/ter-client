@@ -25,7 +25,7 @@ class RemoveVersionCommand extends Command
     {
         $this->setName('remove-version')
             ->addArgument(
-                'extension-key',
+                'extensionKey',
                 InputArgument::REQUIRED,
                 'Extension key'
             )
@@ -67,8 +67,8 @@ class RemoveVersionCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $extensionKey = realpath($input->getArgument('extension-key'));
-        $version = realpath($input->getArgument('version'));
+        $extensionKey = $input->getArgument('extensionKey');
+        $version = $input->getArgument('version');
         $username = $input->getOption('username');
         $password = $input->getOption('password');
         $wsdUrl = $input->getOption('wsd-url');

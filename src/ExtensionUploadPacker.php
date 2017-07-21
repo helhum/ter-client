@@ -16,15 +16,14 @@ class ExtensionUploadPacker
     protected $permittedDotFiles = array('.htaccess', '.htpasswd');
 
     /**
+     * @param string $extensionKey
      * @param string $directory
      * @param string $comment
-     * @param string $extensionKey
-     * @return string
+     * @return array
      * @throws \RuntimeException
      */
-    public function pack($directory, $comment = '', $extensionKey = null)
+    public function pack($extensionKey, $directory, $comment = '')
     {
-        $extensionKey = $extensionKey ?: pathinfo($directory, PATHINFO_FILENAME);
         $extensionConfiguration = $this->readExtensionConfigurationFile($directory, $extensionKey);
         $data = $this->createFileDataArray($directory);
         $data['EM_CONF'] = $extensionConfiguration;
