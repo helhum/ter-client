@@ -9,8 +9,8 @@ class Connection
     const SOAP_RETURN_MESSAGES = 'resultMessages';
     const SOAP_RETURN_VERSION = 'version';
     const SOAP_CODE_SUCCESS = 10504;
-    const WSDL_URL = 'https://typo3.org/wsdl/tx_ter_wsdl.php';
-    const WSDL_NAMESPACE = 'https://www.typo3.org/wsdl/tx_ter/';
+    const WSDL_URL = 'https://extensions.typo3.org/typo3conf/ext/ter/tx_ter_wsdl.php';
+    const WSDL_NAMESPACE = 'https://extensions.typo3.org/wsdl/tx_ter/';
     const FUNCTION_UPLOAD = 'uploadExtension';
     const FUNCTION_DELETEVERSION = 'deleteExtension';
 
