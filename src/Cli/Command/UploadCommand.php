@@ -56,7 +56,7 @@ class UploadCommand extends Command
                 null,
                 InputOption::VALUE_OPTIONAL,
                 'Alternative WSD URL / SOAP Endpoint',
-                'https://typo3.org/wsdl/tx_ter_wsdl.php'
+                Connection::WSDL_URL
             );
         $this->setDescription('Uploads the given directory to TER');
     }
