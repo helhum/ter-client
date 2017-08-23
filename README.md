@@ -28,7 +28,7 @@ $result = $connection->upload(
 And as CLI command:
 
 ```bash
-ter-client upload ext_key /path/to/extension -u myusername -p mypassword -m
+ter-client upload ext_key /path/to/extension -u myusername -p mypassword -m "Upload Comment"
 ```
 
 ### Version Deleter (admins only)
