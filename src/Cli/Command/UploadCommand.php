@@ -85,6 +85,9 @@ class UploadCommand extends Command
         while (empty($password)) {
             $password = $this->ask($input, $output, '<comment>Please specify a password:</comment> ', true);
         }
+        while (empty($comment)) {
+            $comment = $this->ask($input, $output, '<comment>Please specify a comment:</comment> ', true);
+        }
 
         $uploadPacker = new ExtensionUploadPacker();
         $connection = Connection::create($wsdUrl);
