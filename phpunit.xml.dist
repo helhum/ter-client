@@ -12,7 +12,7 @@
          verbose="false">
     <testsuites>
         <testsuite name="typo3-repository-client">
-            <directory>tests/unit</directory>
+            <directory>tests/Unit</directory>
         </testsuite>
     </testsuites>
 </phpunit>

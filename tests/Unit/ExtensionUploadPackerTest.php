@@ -154,7 +154,7 @@ class ExtensionUploadPackerTest extends \PHPUnit_Framework_TestCase
                 ),
                 'infoData' => array(
                     'codeLines' => 41,
-                    'codeBytes' => 853,
+                    'codeBytes' => 868,
                     'codingGuidelinesCompliance' => '',
                     'codingGuidelinesComplianceNotes' => '',
                     'uploadComment' => 'comment',
@@ -164,11 +164,11 @@ class ExtensionUploadPackerTest extends \PHPUnit_Framework_TestCase
             'filesData' => array(
                  array(
                     'name' => 'ext_emconf.php',
-                    'size' => 853,
+                    'size' => 868,
                     'modificationTime' => self::$mtime,
                     'isExecutable' => 0,
                     'content' => self::$fixtureString,
-                    'contentMD5' => 'f87088992115285f0932e1f765548085',
+                    'contentMD5' => '1e9681d65a3de27d2b3ee11b70b052a0',
                 ),
             ),
         );
@@ -225,10 +225,10 @@ class ExtensionUploadPackerTest extends \PHPUnit_Framework_TestCase
         $method = new \ReflectionMethod($packer, 'createFileDataArray');
         $method->setAccessible(true);
         $result = $method->invoke($packer, $directory);
-        $this->assertEquals(array('extKey' => 'temp', 'misc' => array('codelines' => 41, 'codebytes' => 853),
+        $this->assertEquals(array('extKey' => 'temp', 'misc' => array('codelines' => 41, 'codebytes' => 868),
             'techInfo' => 'All good, baby', 'FILES' => array('ext_emconf.php' => array('name' => 'ext_emconf.php',
-            'size' => 853, 'mtime' => self::$mtime, 'is_executable' => false, 'content' => self::$fixtureString,
-            'content_md5' => 'f87088992115285f0932e1f765548085', 'codelines' => 41, ),
+            'size' => 868, 'mtime' => self::$mtime, 'is_executable' => false, 'content' => self::$fixtureString,
+            'content_md5' => '1e9681d65a3de27d2b3ee11b70b052a0', 'codelines' => 41, ),
         ), ), $result);
     }
 
